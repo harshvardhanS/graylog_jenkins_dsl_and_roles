@@ -16,10 +16,9 @@
 # Install common package on each nodes
  - hosts: graylog 
    become: true
-   roles:
-     - { role: common }
-# install graylog-server
    vars:
      gl_ip: "{{ ansible_default_ipv4.address }}"
    roles:
+     - { role: common }
+# install graylog-server
      - { role: graylog }

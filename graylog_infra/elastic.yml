@@ -13,5 +13,4 @@
    roles:
      - { role: common }
 # install elasticsearch
-   roles:
      - { role: elastic }
