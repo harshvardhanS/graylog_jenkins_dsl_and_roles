@@ -18,6 +18,5 @@
    become: true
    vars:
      gl_ip: "{{ ansible_default_ipv4.address }}"
-     gl_public_ip: '107.20.43.221'
    roles:
      - { role: graylog }
