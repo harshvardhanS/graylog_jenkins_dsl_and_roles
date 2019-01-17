@@ -1,3 +1,5 @@
+[tag_Env_dev]
+
 [tag_Role_graylog]
 
 [tag_Role_jenkins]
@@ -15,12 +17,9 @@
 [es-master:children]
 tag_esMaster_True
 
-
 [es-data:children]
 tag_esMaster_False
 
-
-[es-server:children]
 es-master
 es-data
 
@@ -34,10 +33,13 @@ tag_mongoMaster_False
 mongo-master
 mongo-slave
 
+[graylog]
+tag_Role_graylog
+
 [tag_Env_dev]
 
 [DevEnv:children]
 mongo
 es-server
+graylog
 tag_Role_jenkins
-tag_Role_graylog
