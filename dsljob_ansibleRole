@@ -2,8 +2,8 @@ job('example-1') {
     scm {
         git {
             remote {
-                name('remoteB')
-                url('https://github.com/harshvardhanS/dynamicInventory.git')
+                name('graylog_jenkins_dsl_and_roles')
+                url('https://github.com/harshvardhanS/graylog_jenkins_dsl_and_roles.git')
             }
           	branch('master')
             extensions {
@@ -23,8 +23,8 @@ job('ansible-mongo-es') {
 	scm {
 	     git {
 		 remote {
-		    name('dynamicInventory')
-		    url('https://github.com/harshvardhanS/dynamicInventory.git')
+		    name('graylog_jenkins_dsl_and_roles')
+		    url('https://github.com/harshvardhanS/graylog_jenkins_dsl_and_roles.git')
 		}
 		branch('master')
 		extensions {
@@ -44,8 +44,8 @@ job('ansible-graylog') {
         scm {
              git {
                  remote {
-                    name('dynamicInventory')
-                    url('https://github.com/harshvardhanS/dynamicInventory.git')
+                    name('graylog_jenkins_dsl_and_roles')
+                    url('https://github.com/harshvardhanS/graylog_jenkins_dsl_and_roles.git')
                 }
                 branch('master')
                 extensions {
