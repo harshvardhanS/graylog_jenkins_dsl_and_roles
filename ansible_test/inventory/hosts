@@ -1,31 +1,34 @@
+[tag_Role_graylog]
+
+[tag_Role_jenkins]
+
+[tag_mongoMaster_True]
+
+[tag_mongoMaster_False]
+
+[tag_esMaster_True]
+
+[tag_esMaster_False]
+
+[tag_Role_elasticsearch]
+
+[es-master:children]
+tag_esMaster_True
+
+
+[es-data:children]
+tag_esMaster_False
+
+
 [es-server:children]
 es-master
 es-data
 
-[tag_Role_mongo_es_1]
-
-[tag_Role_mongo_es_2]
-
-[tag_Role_mongo_es_3]
-
-[tag_Role_jenkins]
-
-[tag_Role_graylog]
-
-[es-master:children]
-tag_Role_mongo_es_1
-
-[es-data:children]
-tag_Role_mongo_es_2
-tag_Role_mongo_es_3
-
-
 [mongo-master:children]
-tag_Role_mongo_es_1
+tag_mongoMaster_True
 
 [mongo-slave:children]
-tag_Role_mongo_es_2
-tag_Role_mongo_es_3
+tag_mongoMaster_False
 
 [mongo:children]
 mongo-master
@@ -35,5 +38,6 @@ mongo-slave
 
 [DevEnv:children]
 mongo
+es-server
 tag_Role_jenkins
 tag_Role_graylog
