@@ -1,0 +1,18 @@
+---
+# vars file for elasticsearch
+repo_key: "https://artifacts.elastic.co/GPG-KEY-elasticsearch"
+repo_url: "deb https://artifacts.elastic.co/packages/6.x/apt stable main"
+cluster_name: graylog
+
+data_path: /var/lib/elasticsearch
+log_path: /var/log/elasticsearch
+zen_host: "[\"{{ groups['es-master'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | join('\",\"') }}\"]"
+transport_host: localhost
+transport_tcp_port: 9300
+http_port: 9200
+m_lock: "true"
+elasticsearchIP: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+
+min_heap: "{{ ansible_memtotal_mb // 2 }}m"
+max_heap: "{{ ansible_memtotal_mb // 2 }}m"
+#es_memory: 512 

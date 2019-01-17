@@ -1,0 +1,24 @@
+---
+# vars file for mongodb
+repo_key: 'hkp://keyserver.ubuntu.com:80'
+repo_id: '2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5'
+repo_url: 'deb https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse'
+mongo_package: 'mongodb-org'
+
+keyFilePath: /etc/mongodb-keyfile
+mongoConfPath: /etc/mongod.conf
+
+db_admin_username: admin
+db_admin_password: admin123
+db_name: graylog
+db_user_name: grayloguser
+db_user_password: graylog123
+
+db_path: /var/lib/mongodb
+pidFilePath: /var/run/mongodb/mongod.pid
+systemlog_path: /var/log/mongodb/mongod.log
+timeZoneInfo: /usr/share/zoneinfo
+mongo_port: 27017
+replSetName: rs01
+bind_ip: 0.0.0.0
+#bind_ip: "{{ inventory_hostname }}"

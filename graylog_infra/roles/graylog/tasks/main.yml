@@ -1,0 +1,8 @@
+---
+# tasks file for graylog
+ - name: Install Graylog
+   include_tasks: install_graylog.yml
+   tags: install_graylog
+
+ - name: Configure Graylog
+   include_tasks: configure_graylog.yml

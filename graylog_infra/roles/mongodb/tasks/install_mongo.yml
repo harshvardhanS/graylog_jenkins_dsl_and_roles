@@ -1,0 +1,23 @@
+---
+ - name: "Mongodb - Add repo key"
+   apt_key:
+     keyserver: "{{ repo_key }}"
+     id: "{{ repo_id }}"
+     state: present
+
+ - name: "Mongodb - Add repo"
+   apt_repository:
+     repo: "{{ repo_url }}"
+     state: present
+
+ - name: "Mongodb - Install package"
+   apt:
+     name: "{{ mongo_package }}"
+     update_cache: true
+     state: present
+
+ - name: "Mongodb - Configure mongodb service start at boot"
+   service:
+     name: "mongod"
+     enabled: yes
+     state: started

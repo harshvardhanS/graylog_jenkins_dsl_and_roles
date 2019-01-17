@@ -1,0 +1,39 @@
+---
+ - name: copy create admin user script
+   template:
+     src: createAdmins.j2
+     dest: /tmp/createAdmins.js
+   when: inventory_hostname in groups['mongo-master']
+
+ - name: create admin user
+   shell: /usr/bin/mongo < /tmp/createAdmins.js
+   register: create_admin_user
+   when: inventory_hostname in groups['mongo-master']
+
+ - debug:
+     var: create_admin_user
+
+ - name: create key file
+   local_action: shell openssl rand -base64 755 > /tmp/mongodb-keyfile
+
+ - name: copy configuration file with authentication enabled
+   template:
+     src: mongod_auth_conf.j2
+     dest: "{{ mongoConfPath }}"
+     mode: 0644
+   notify: restart mongo-service
+
+ - name: copy keyfile to each node
+   copy:
+     src: /tmp/mongodb-keyfile
+     dest: "{{ keyFilePath }}"
+     mode: 0600
+   notify: restart mongo-service
+
+ - name: change keyfile ownership to mongo
+   file:
+     path: "{{ keyFilePath }}"
+     state: file
+     owner: mongodb
+     group: mongodb
+   notify: restart mongo-service

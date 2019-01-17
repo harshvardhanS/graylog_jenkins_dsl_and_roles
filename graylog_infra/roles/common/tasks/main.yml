@@ -1,0 +1,4 @@
+---
+ - name: install common packages
+   include_tasks: install_prerequisite.yml
+   tags: install_prerequisite

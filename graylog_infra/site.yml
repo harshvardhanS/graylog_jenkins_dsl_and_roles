@@ -1,0 +1,26 @@
+---
+# Pretask install python
+ - hosts: "{{ variable_host | default('DevEnv')}}"
+   become: true
+   gather_facts: false
+   pre_tasks:
+     - name: 'install python2'
+       raw: sudo apt-get -y install python
+
+# Install common package on each nodes
+ - hosts: "{{ variable_host | default('DevEnv')}}"
+   become: true
+   roles:
+     - { role: common }
+
+# install elasticsearch
+ - hosts: es-server
+   become: true
+   roles:
+     - { role: elastic }
+
+# install mongo-server
+ - hosts: mongo
+   become: true
+   roles:
+     - { role: mongodb }

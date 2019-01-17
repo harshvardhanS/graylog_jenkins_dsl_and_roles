@@ -1,0 +1,16 @@
+---
+# tasks file for mongodb
+ - name: install mongodb
+   include_tasks: install_mongo.yml
+
+ - name: configure mongodb
+   include_tasks: config_mongo.yml
+
+# - name: enable read from slave
+#   include_tasks: config_slave.yml
+
+ - name: enable authentication
+   include_tasks: enable_auth.yml
+
+ - name: create graylog user
+   include_tasks: create_users.yml

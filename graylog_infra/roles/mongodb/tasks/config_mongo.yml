@@ -1,0 +1,37 @@
+---
+ - name: Add IP address to host file
+   lineinfile:
+     dest: /etc/hosts
+     line: "{{ hostvars[item].ansible_default_ipv4.address }} {{ ec2_tag_Name }}"
+     state: present
+   with_items: "{{ groups['mongo'] }}"
+
+ - name: Copy configuration file
+   template:
+     src: mongod.conf.j2
+     dest: "{{ mongoConfPath }}"
+   register: configchange
+
+ - name: restart service if config changed
+   service:
+     name: mongod
+     state: restarted
+   when: configchange.changed
+
+ - name: wait connection to mongo port
+   wait_for: port=27017 state="started" delay=5
+   when: configchange.changed
+
+ - name: Copy replica_init.js file
+   template:
+     src: replica_init.j2
+     dest: /tmp/replica_init.js
+   when: "'mongo-master' in group_names"
+
+ - name: Configure replica set
+   shell: mongo < /tmp/replica_init.js
+   register: output
+   when: "'mongo-master' in group_names"
+
+ - debug:
+     var: output

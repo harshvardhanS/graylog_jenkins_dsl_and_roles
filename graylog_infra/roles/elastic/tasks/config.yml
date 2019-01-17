@@ -1,0 +1,10 @@
+---
+- name: Copy elasticsearch configuration files.
+  template:
+    src: "{{ item.name }}"
+    dest: "{{ item.path }}"
+  with_items:
+      - { name: "{{ es_config_template }}", path: "{{ es_config_file }}" }
+      - { name: "{{ es_jvm_option_template }}", path: "{{ jvm_option_file }}" }
+  notify:
+    - Elasticsearch - restart service

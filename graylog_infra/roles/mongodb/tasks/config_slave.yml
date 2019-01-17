@@ -1,0 +1,15 @@
+---
+ - name: Copy readfromSlave script
+   template:
+     src: configSlave.j2
+     dest: /tmp/configSlave.js
+   #when: inventory_hostname in groups['mongo-slave']
+   when: "'mongo-slave' in group_names"
+
+ - name: Set read from slave OK
+   shell: /usr/bin/mongo < /tmp/configSlave.js
+   register: slave_initiate
+   when: "'mongo-slave' in group_names"
+
+ - debug:
+     var: slave_initiate

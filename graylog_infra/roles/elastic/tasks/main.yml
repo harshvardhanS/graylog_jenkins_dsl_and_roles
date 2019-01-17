@@ -1,0 +1,17 @@
+---
+- name: install & configure elasticsearch
+  include_tasks: install_elastic.yml
+
+- name: configure elasticsearch master node
+  include_tasks: config.yml
+  vars:
+   - node_master: 'true'
+   - node_data: 'false'
+  when: "'es-master' in group_names"
+
+- name: configure elasticsearch data node
+  include_tasks: config.yml
+  vars:
+   - node_master: 'false'
+   - node_data: 'true'
+  when: "'es-data' in group_names"

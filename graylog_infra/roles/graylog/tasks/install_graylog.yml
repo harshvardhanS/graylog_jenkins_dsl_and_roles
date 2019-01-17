@@ -1,0 +1,20 @@
+---
+ - name: "Graylog - get packages"
+   apt:
+     deb: "{{ package_url }}"
+     update_cache: true
+     state: present
+
+ - name: "Graylog - Install packages"
+   apt:
+     update_cache: true
+     name: "{{ package_name }}"
+     state: present
+
+ - name: "Graylog - Configure service"
+   service:
+     name: "graylog-server"
+     enabled: yes
+     state: started
+   notify:
+     - Graylog - restart service

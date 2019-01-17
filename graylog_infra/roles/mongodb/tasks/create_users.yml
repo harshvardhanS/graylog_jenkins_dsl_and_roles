@@ -1,0 +1,15 @@
+---
+ - name: copy create user script
+   template:
+     src: createUsers.j2
+     dest: /tmp/createUsers.js
+   when: inventory_hostname in groups['mongo-master']
+
+ - name: create user
+   shell: /usr/bin/mongo < /tmp/createUsers.js
+   register: create_user
+   when: inventory_hostname in groups['mongo-master']
+
+ - debug:
+     var: create_user
+   when: inventory_hostname in groups['mongo-master']

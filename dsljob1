@@ -1,0 +1,63 @@
+job('example-1') {
+    scm {
+        git {
+            remote {
+                name('remoteB')
+                url('https://github.com/harshvardhanS/dynamicInventory.git')
+            }
+          	branch('master')
+            extensions {
+                cleanBeforeCheckout()
+            }
+        }
+    }
+  steps {
+    	ansiblePlaybook("ansible_test/playbook/graylog.yml"){
+      		inventoryPath("ansible_test/inventory")
+
+    	}
+ 	}
+}
+
+job('ansible-mongo-es') {
+	scm {
+	     git {
+		 remote {
+		    name('dynamicInventory')
+		    url('https://github.com/harshvardhanS/dynamicInventory.git')
+		}
+		branch('master')
+		extensions {
+			cleanBeforeCheckout()
+		}
+	     }
+        }   
+
+	steps {
+		ansiblePlaybook("graylog_infra/site.yml"){
+			inventoryPath("graylog_infra/inventory")
+		}
+	}
+}
+
+job('ansible-graylog') {
+        scm {
+             git {
+                 remote {
+                    name('dynamicInventory')
+                    url('https://github.com/harshvardhanS/dynamicInventory.git')
+                }
+                branch('master')
+                extensions {
+                        cleanBeforeCheckout()
+                }
+             }
+        }
+
+        steps {
+                ansiblePlaybook("graylog_infra/graylog.yml"){
+                        inventoryPath("graylog_infra/inventory")
+                }
+        }
+}
+

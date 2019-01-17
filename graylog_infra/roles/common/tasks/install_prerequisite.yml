@@ -1,0 +1,35 @@
+---
+ - name: set vm.swappiness to 1 in /etc/sysctl.conf
+   sysctl:
+    name: vm.swappiness
+    value: "{{ swapness }}"
+    state: present
+
+ - name: set virtual max area /etc/sysctl.conf
+   sysctl:
+    name: vm.max_map_count
+    value: "{{ vm_max_count }}"
+    state: present
+
+ - name: Install prerequisite-packag
+   apt:
+    name: "{{ item }}"
+    update_cache: true
+    state: present
+   with_items:
+    - apt-transport-https
+    - openjdk-8-jre-headless
+    - uuid-runtime
+    - pwgen
+
+ - name: configure ulimit
+   template:
+    src: "{{ item.name }}"
+    dest: "{{ item.path }}"
+   with_items:
+    - { name: 'limit.conf.j2', path: '/etc/security/limits.conf' }
+   notify:
+    - reload systemd
+
+ - name: enable open file witout restart
+   shell: "ulimit -n 4096"

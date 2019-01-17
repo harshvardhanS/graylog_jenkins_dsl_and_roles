@@ -1,0 +1,34 @@
+---
+ - hosts: "{{ variable_host | default('DevEnv')}}"
+   become: true
+   gather_facts: false
+   pre_tasks:
+     - name: 'install python2'
+       raw: sudo apt-get -y install python
+ - hosts: "{{ variable_host | default('DevEnv')}}"
+   become: true
+   tasks:
+    - name: get hostname
+      command: hostname
+      register: hostname
+      when: "'tag_Env_dev' in group_names"
+    - debug:
+        msg: "{{ hostname.stdout_lines }}"
+    - name: for role_mongo_master
+      command: hostname
+      when: "'mongo-master' in group_names"
+    - name: for role_mongo_slave
+      command: hostname
+      when: "'mongo-slave' in group_names"
+    - name: for role_elastic master
+      command: hostname
+      when: "'es-master' in group_names"
+    - name: for role_elastic data
+      command: hostname
+      when: "'es-data' in group_names"
+    - name: for role_jenkins
+      command: hostname
+      when: "'tag_Role_jenkins' in group_names"
+    - name: for role_graylog
+      command: hostname
+      when: "'tag_Role_graylog' in group_names"

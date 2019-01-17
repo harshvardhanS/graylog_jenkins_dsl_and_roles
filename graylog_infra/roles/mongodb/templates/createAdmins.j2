@@ -1,0 +1,8 @@
+use admin;
+if(!db.getUser("{{ db_admin_username }}")){
+	db.createUser( {
+	    user: "{{ db_admin_username }}",
+	    pwd:  "{{ db_admin_password }}",
+	    roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
+	});
+}

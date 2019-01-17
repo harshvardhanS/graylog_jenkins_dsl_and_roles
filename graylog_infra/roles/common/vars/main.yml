@@ -1,0 +1,7 @@
+---
+# vars file for common
+nofile_limit: "65536"
+nproc_limit: "5000"
+swapness: 1
+vm_max_count: 262144
+

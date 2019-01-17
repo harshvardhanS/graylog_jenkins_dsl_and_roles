@@ -1,0 +1,31 @@
+---
+# vars file for graylog
+package_url: 'https://packages.graylog2.org/repo/packages/graylog-2.5-repository_latest.deb'
+package_name: 'graylog-server'
+graylog_conf_file: '/etc/graylog/server/server.conf'
+gl_config_template: 'graylogServer.conf.j2'
+
+password: 'graylog123'
+is_master: 'true'
+root_timezone: UTC
+rest_listen_uri: "http://{% if gl_ip %}{{ gl_ip }}{% else %}{{ ansible_default_ipv4.address }}{% endif %}:9000/api/"
+rest_transport_uri: "http://{% if gl_ip %}{{ gl_ip }}{% else %}{{ ansible_default_ipv4.address }}{% endif %}:9000/api/"
+rest_enable_cors: 'true'
+rest_enable_gzip: 'false'
+web_enable: 'true'
+web_listen_uri: "http://{% if gl_ip %}{{ gl_ip }}{% else %}{{ ansible_default_ipv4.address }}{% endif %}:9000/"
+web_endpoint_uri: "http://{% if gl_public_ip %}{{ gl_public_ip }}{% endif %}:9000/api/"
+web_enable_cors: 'true'
+web_enable_gzip: 'false'
+
+elasticsearch_hosts: "http://{{ groups['es-server'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | join(':9200,http://') }}:9200"
+elasticsearch_shards: 2
+elasticsearch_replicas: 1
+
+db_name: graylog
+db_user_name: grayloguser
+db_user_password: graylog123
+mongodb_uri: "mongodb://{{ db_user_name }}:{{ db_user_password }}@{{ groups['mongo'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | join(':27017,') }}:27017/{{ db_name }}"
+
+#gl_ip: "{{ ansible_default_ipv4.address }}"
+#gl_public_ip:

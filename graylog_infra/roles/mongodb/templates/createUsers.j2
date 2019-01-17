@@ -1,0 +1,16 @@
+use admin;
+db.auth("{{ db_admin_username  }}", "{{ db_admin_password  }}");
+use {{ db_name }}
+if(!db.getUser("{{ db_user_name }}")){
+ db.createUser({
+   user: "{{ db_user_name }}",
+   pwd: "{{ db_user_password }}",
+   roles: 
+	[ 
+	  { 
+	    role: "readWrite",
+	    db: "{{ db_name }}"
+	  }
+	]
+  });
+}

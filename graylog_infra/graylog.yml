@@ -1,0 +1,24 @@
+---
+# Pretask install python
+ - hosts: "{{ variable_host | default('DevEnv')}}"
+   become: true
+   gather_facts: false
+   pre_tasks:
+     - name: 'install python2'
+       raw: sudo apt-get -y install python
+
+# Install common package on each nodes
+ - hosts: "{{ variable_host | default('DevEnv')}}"
+   become: true
+   roles:
+     - { role: common }
+
+
+# install graylog-server
+ - hosts: graylog
+   become: true
+   vars:
+     gl_ip: "{{ ansible_default_ipv4.address }}"
+     gl_public_ip: '107.20.43.221'
+   roles:
+     - { role: graylog }

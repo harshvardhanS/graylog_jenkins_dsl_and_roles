@@ -1,0 +1,10 @@
+rs.initiate({_id: "rs01", members: [{_id: 0, host: "{{ groups['mongo-master'][0] }}:27017"}]});
+sleep(8000)
+{% for host in groups['mongo-slave'] %}
+rs.add("{{ host }}:{{ mongo_port }}")
+sleep(2000)
+{% endfor %}
+{% if arbiter_node is defined %}
+rs.addArb("{{ arbiter_node }}:{{ mongo_port }}");
+{% endif %}
+printjson(rs.status())

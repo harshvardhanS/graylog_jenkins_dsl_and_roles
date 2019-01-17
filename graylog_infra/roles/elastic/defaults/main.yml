@@ -1,0 +1,11 @@
+---
+# defaults file for elastic
+es_package: 'elasticsearch'
+
+java_path: '/usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java'
+default_es_file: '/etc/default/elasticsearch'
+es_config_template: "elasticsearch.yml.j2"
+es_config_file: "/etc/elasticsearch/elasticsearch.yml"
+es_jvm_option_template: "jvm.options.j2"
+jvm_option_file: '/etc/elasticsearch/jvm.options'
+es_jvm_dump: /var/lib/elasticsearch/heap
