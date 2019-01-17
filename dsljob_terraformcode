@@ -1,7 +1,7 @@
 pipelineJob('graylog_infra_provisioner') { 
 
-  def repo = 'https://github.com/harshvardhanS/dynamicInventory.git' 
-  def sshRepo = 'git@git.company.com:user/yourApp.git' 
+  def repo = 'https://github.com/harshvardhanS/graylog_jenkins_dsl_and_roles.git' 
+  def sshRepo = 'git@github.com:harshvardhanS/graylog_jenkins_dsl_and_roles.git' 
 
   description("Graylog Pipeline") 
   keepDependencies(false) 
