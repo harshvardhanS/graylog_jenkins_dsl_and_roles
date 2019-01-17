@@ -105,7 +105,9 @@ job('ansible-graylog') {
         steps {
                 ansiblePlaybook("graylog_infra/graylog.yml"){
                         inventoryPath("graylog_infra/inventory")
-			extraVar("gl_public_ip", "\$Public_DNS", false)
+                  	extraVars {
+            			extraVar("gl_public_ip", "\$Public_DNS", false)
+        		}
                 }
         }
 }
