@@ -7,15 +7,18 @@
      - name: 'install python2'
        raw: sudo apt-get -y install python
 
+ - hosts: "{{ variable_host | default('DevEnv')}}"
+   become: true
+   tasks:
+    - name: get hostname
+      command: hostname
+
 # Install common package on each nodes
  - hosts: graylog 
    become: true
    roles:
      - { role: common }
-
 # install graylog-server
- - hosts: graylog
-   become: true
    vars:
      gl_ip: "{{ ansible_default_ipv4.address }}"
    roles:

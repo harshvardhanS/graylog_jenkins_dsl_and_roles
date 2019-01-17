@@ -37,4 +37,5 @@ tag_Role_graylog
 
 [DevEnv:children]
 mongo
+es-server
 tag_Role_graylog
