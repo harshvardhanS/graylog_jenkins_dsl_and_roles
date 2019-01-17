@@ -27,3 +27,4 @@ pipelineJob('graylog_infra_provisioner') {
       } 
     } 
   }
+}
