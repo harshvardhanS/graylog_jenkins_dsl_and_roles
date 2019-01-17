@@ -84,6 +84,11 @@ job('ansible-es') {
 
 
 job('ansible-graylog') {
+	
+	parameters {
+        	stringParam('Public_DNS', '', 'provide Public DNS for graylog')
+    	}
+
         scm {
              git {
                  remote {
@@ -100,6 +105,10 @@ job('ansible-graylog') {
         steps {
                 ansiblePlaybook("graylog_infra/graylog.yml"){
                         inventoryPath("graylog_infra/inventory")
+                        extraVar {
+				key("gl_public_ip")
+				value("${Public_DNS}")
+			}
                 }
         }
 }
