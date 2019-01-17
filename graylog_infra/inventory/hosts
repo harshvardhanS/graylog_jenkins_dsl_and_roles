@@ -33,7 +33,7 @@ tag_mongoMaster_False
 mongo-master
 mongo-slave
 
-[graylog]
+[graylog:children]
 tag_Role_graylog
 
 [tag_Env_dev]
