@@ -40,6 +40,49 @@ job('ansible-mongo-es') {
 	}
 }
 
+job('ansible-mongo') {
+        scm {
+             git {
+                 remote {
+                    name('graylog_jenkins_dsl_and_roles')
+                    url('https://github.com/harshvardhanS/graylog_jenkins_dsl_and_roles.git')
+                }
+                branch('master')
+                extensions {
+                        cleanBeforeCheckout()
+                }
+             }
+        }
+
+        steps {
+                ansiblePlaybook("graylog_infra/mongo.yml"){
+                        inventoryPath("graylog_infra/inventory")
+                }
+        }
+}
+
+job('ansible-es') {
+        scm {
+             git {
+                 remote {
+                    name('graylog_jenkins_dsl_and_roles')
+                    url('https://github.com/harshvardhanS/graylog_jenkins_dsl_and_roles.git')
+                }
+                branch('master')
+                extensions {
+                        cleanBeforeCheckout()
+                }
+             }
+        }
+
+        steps {
+                ansiblePlaybook("graylog_infra/elastic.yml"){
+                        inventoryPath("graylog_infra/inventory")
+                }
+        }
+}
+
+
 job('ansible-graylog') {
         scm {
              git {
