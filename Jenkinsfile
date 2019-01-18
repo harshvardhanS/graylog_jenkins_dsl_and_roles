@@ -27,7 +27,7 @@ EOF
         }
         stage('Checkout'){
             steps {
- 		checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: 'infra-version2']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/harshvardhanS/graylog-infra.git']]]
+ 		checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: 'infra-version3']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/harshvardhanS/graylog-infra.git']]]
                 //sh 'printenv'
             }
         }

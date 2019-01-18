@@ -1,4 +1,4 @@
-pipelineJob('graylog_infra_provisioner_HA') { 
+pipelineJob('graylog_infra_provisioner_HA_V2') { 
 
   def repo = 'https://github.com/harshvardhanS/graylog_jenkins_dsl_and_roles.git' 
   def sshRepo = 'git@github.com:harshvardhanS/graylog_jenkins_dsl_and_roles.git' 
@@ -20,7 +20,7 @@ pipelineJob('graylog_infra_provisioner_HA') {
       scm { 
         git { 
           remote { url(repo) } 
-          branches('release/version2') 
+          branches('release/version3') 
           scriptPath('Jenkinsfile') 
           extensions { }  // required as otherwise it may try to tag the repo, which you may not want 
         } 
